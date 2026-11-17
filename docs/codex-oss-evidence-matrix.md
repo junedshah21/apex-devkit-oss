@@ -23,6 +23,19 @@ The public guidance says maintainers of active open-source projects may apply. R
 | Optional information (max 500 characters) | Real test/release evidence once complete | Update before submission |
 | Terms and redemption | Official program terms linked from form; six-month Pro is for selected maintainers | Applicant reviews terms; separately verify promo redemption eligibility with active subscription before changing it |
 
+## Final official terms review (checked 2026-11-17)
+
+Official terms: https://developers.openai.com/codex/codex-for-oss-terms
+
+- OpenAI requires accurate, complete applicant/repository/maintainer information and may verify repository control.
+- It may approve or deny applications at its discretion; capacity and ecosystem significance are review factors.
+- Misleading information, multiple identities, unauthorized testing or legal/security risk can lead to rejection or revocation.
+- Program availability and benefits can change or end; avoid claiming guaranteed duration or activation on a specific existing subscription.
+- Do not submit confidential information in the application.
+- Official application remains open with rolling reviews and no published fixed close date at the time of this check.
+
+**Critical current release blocker:** the existing public `f199526.sql` (and eight fragments) contains an exporter's identity metadata; authorization and redistributability of the full SQL and embedded assets have not been independently established. This is more important than cosmetic README work. Release testing on the current PR is also not fully executed because the provided environment cannot clone GitHub (DNS resolution failure).
+
 ## Deadline and prioritization (official page checked 2026-11-17)
 
 The live [application form](https://openai.com/form/codex-for-oss/) explicitly says applications are reviewed **on a rolling basis**. **No fixed closure date is published on that page.** This does not guarantee the offer will remain available. Therefore do not postpone submission indefinitely waiting for vanity metrics or an arbitrary repository age.
