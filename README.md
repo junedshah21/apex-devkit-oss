@@ -51,4 +51,4 @@ ZIP archives: no extraction to disk, no traversal paths, maximum 1,000 entries a
 
 ## Disclaimers
 
-This independent project is not affiliated with or endorsed by Oracle or OpenAI. Oracle and APEX are trademarks of their respective owners. No employer or customer source code is included. This repository has no dependency on GitHub Actions.
+This independent project is not affiliated with or endorsed by Oracle or OpenAI. Oracle and APEX are trademarks of their respective owners. The current main branch uses self-authored public examples and no longer contains the previously published real APEX export fixture. Historical Git commits may still contain that export; ownership and redistribution rights for that historical material have not been verified. Do not interpret removal from main as Git history sanitization. This repository has no dependency on GitHub Actions.
