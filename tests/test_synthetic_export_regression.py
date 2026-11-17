@@ -52,6 +52,13 @@ class SyntheticExportRegressionTests(unittest.TestCase):
             self.assertEqual(inspect_export(archive)["components"], EXPECTED)
             self.assertEqual(inspect_export(archive)["files_inspected"], 1)
 
+    def test_lint_line_numbers_across_large_multiline_input(self):
+        from apex_devkit.analysis import analyze_sql
+        source = ("-- ignored\n" * 1000) + "SELECT * FROM records;\n" + ("\n" * 1000) + "COMMIT;"
+        findings = analyze_sql(source)
+        self.assertEqual([(item.rule, item.line) for item in findings],
+                         [("SQL001", 1001), ("SQL003", 2002)])
+
     def test_zip_byte_budget_counts_exact_source_bytes(self):
         from apex_devkit.exports import _read_bounded
         with tempfile.TemporaryDirectory() as temp:
