@@ -1,11 +1,47 @@
 # APEX DevKit OSS
 
-Independent MIT-licensed, offline and read-only advisory toolkit for Oracle APEX developers. **Experimental v0.1.0 source snapshot, not Oracle-certified.**
+**Experimental v0.1.0 candidate — not Oracle-certified.** Small, independent MIT-licensed toolkit for **offline, read-only** review of Oracle APEX exports and SQL/PLSQL source.
 
-The project provides conservative SQL/PLSQL static advisories and read-only APEX export inspection for SQL files, split export folders, and ZIPs. It is not a full parser, a vulnerability scanner, or a substitute for professional security review. No input SQL is executed.
+## Current functionality
 
-**Development:** Python 3.10+; no runtime third-party dependencies. After installing with `python -m pip install -e .`, run `apex-devkit lint sample.sql --format markdown` or `apex-devkit inspect-export f100.sql --format json`. Run local QA via `./scripts/check.sh`. No GitHub Actions dependency.
+- `lint`: conservative lexical advisories for `SELECT *`, cursor loops, dynamic SQL, `WHEN OTHERS`, and `COMMIT`.
+- `inspect-export`: counts recognized APEX SQL export component declaration signatures in a single `.sql`, split folder, or ZIP. Reviews one authentication declaration pattern.
+- Outputs JSON or Markdown. `--disable SQL001` and inline `-- devkit: ignore SQL001` suppress an advisory.
+- `sql/schema_inventory.sql`: **optional**, manually executed read-only Oracle user-schema metadata queries. Not integrated into the Python CLI.
+- `examples/apex_ajax_callback.sql`: original sample, **not** an installed APEX application.
 
-See [architecture](docs/architecture.md), [rules](docs/rules.md), [QA](docs/qa-report.md), [security policy](SECURITY.md), and [roadmap](ROADMAP.md).
+These utilities are not a full Oracle SQL parser, vulnerability scanner, or a certified APEX application analyzer. No SQL or APEX export is executed by the Python tools. Treat findings as prompts for human review. The export file might contain secrets; **never publish sensitive export files or their reports without review**.
 
-This project is not affiliated with Oracle or OpenAI. Real Oracle compatibility and public adoption have not been established. Do not publish confidential exports or reports.
+## Requirements and quick start
+
+Python 3.10+; no runtime Python dependencies and **no database connection** for the CLI.
+
+```sh
+python -m venv .venv
+. .venv/bin/activate             # Windows: .venv\Scripts\activate
+python -m pip install -e .
+apex-devkit lint path/to/sample.sql --format markdown
+apex-devkit inspect-export path/to/f123.sql --format json --output report.json
+apex-devkit inspect-export path/to/f123/ --format markdown
+./scripts/check.sh              # Windows: PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+An alternative without installing: `PYTHONPATH=src python -m apex_devkit lint example.sql`.
+
+## Safety and input limits
+
+ZIP archives: no extraction to disk, no traversal paths, maximum 1,000 entries and 20 MiB total declared uncompressed size. SQL input: 20 MiB. Use trusted exports only. The tool does not execute them. Common Oracle alternative quoting (`q'[...]'` etc.) is masked, but this is not a complete Oracle parser; newer APEX component families may be unrecognized. ZIP compression-bomb protection and resource limits require further hardening before processing untrusted public uploads.
+
+## Maintenance
+
+- [Architecture, limits, and permissions](docs/architecture.md)
+- [Rule guide](docs/rules.md)
+- [Threat model](docs/threat-model.md)
+- [Roadmap](ROADMAP.md)
+- [Contributing](CONTRIBUTING.md) and [Security policy](SECURITY.md)
+- [Quality report](docs/qa-report.md)
+- [Release process](docs/release-process.md)
+
+## Disclaimers
+
+This independent project is not affiliated with or endorsed by Oracle or OpenAI. Oracle and APEX are trademarks of their respective owners. No employer or customer source code is included. This repository has no dependency on GitHub Actions.
