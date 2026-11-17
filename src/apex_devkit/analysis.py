@@ -89,6 +89,8 @@ PATTERNS = {
 def analyze_sql(source: str, path: str = '<input>', disabled: set[str] | None = None) -> list[Finding]:
     disabled = disabled or set()
     masked = mask_sql(source)
+    # Compute lines once; repeated splitlines() per finding scales poorly on large exports.
+    source_lines = source.splitlines()
     findings = []
     for rule, pattern in PATTERNS.items():
         if rule in disabled:
@@ -97,7 +99,7 @@ def analyze_sql(source: str, path: str = '<input>', disabled: set[str] | None = 
         for match in pattern.finditer(masked):
             line = source.count('\n', 0, match.start()) + 1
             # Allow a narrow, auditable per-line suppression: -- devkit: ignore SQL001
-            original_line = source.splitlines()[line - 1]
+            original_line = source_lines[line - 1]
             if re.search(r'--\s*devkit:\s*ignore\s+' + rule + r'\b', original_line, re.I):
                 continue
             findings.append(Finding(rule, severity, path, line, message, suggestion))
