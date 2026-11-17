@@ -31,3 +31,15 @@ apex-devkit inspect-export examples/synthetic_apex_export.sql --format json
 ```
 
 Record actual test counts, environment and CLI output only *after* running them; do not backfill expected pass numbers. The real `f199526.sql` artifact is public, but full disclosure/redistribution review is not complete. Do not claim full security clearance, production Oracle compatibility, or formal release readiness from these synthetic checks.
+
+## Reconstructed-source regression execution (2026-11-17)
+
+The GitHub connector supplied the Python module text and two test files from draft PR #2. Because direct `git clone` failed with DNS resolution error, a fresh local Python 3.13.5 environment was populated manually from these retrieved source listings and the following command executed:
+
+```sh
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+**Result:** 23 tests run; 23 passed; 0 failures; 0 errors. Tests covered rule masking/suppressions, component signature detection, SQL/ZIP/directory equivalence, UTF-8 BOM exact byte accounting, security rejection cases, CLI JSON and large multiline diagnostic offsets.
+
+**Scope qualification:** This is a real Python execution of reconstructed code matching the retrieved implementation in behavior, not proof of running the exact Git checkout or installable package. Source was manually reconstituted, rather than independently checked byte-for-byte against repository blob SHA; exact checkout/package-install validation and Python version matrix remain outstanding. Genuine full `f199526.sql` CLI analysis, Oracle APEX runtime tests and public fixture ownership/privacy clearance also remain outstanding.
