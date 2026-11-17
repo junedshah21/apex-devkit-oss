@@ -1,20 +1,26 @@
-# Real APEX export validation — pending content inspection
+# Real APEX export validation — consolidated status (2026-11-17)
 
-Date: 2026-11-17
+This document supersedes the earlier *pending content inspection* note. The evidence and detailed static counts are in [real-export-audit.md](real-export-audit.md).
 
-The repository contains `tests/fixtures/apex-exports/f199526.sql` (Git blob `d9068140cd754aa7c90cada369256d0b5bd3c059`, 11,343,735 bytes), uploaded via commit `0fcf9fae0c10903c55130075e45cf65caae9ae36`. GitHub repository API metadata confirms the upload, **but the GitHub integration rejected raw content retrieval because of size**. Therefore:
+## Verified from published Git objects
 
-- **NOT RUN:** actual export inspection of `f199526.sql`;
-- **NOT VERIFIED:** application ID, APEX version, pages/components, credentials/security posture, ownership or redistribution permissions;
-- **NOT CLAIMED:** compatibility with a genuine Oracle APEX export;
-- **PASS:** existing local synthetic unit/regression suite, 17/17 tests via `sh scripts/check.sh` on 2026-11-17 (Python 3.13.5).
+- `f199526.sql` is present at `tests/fixtures/apex-exports/f199526.sql`, with Git blob `d9068140cd754aa7c90cada369256d0b5bd3c059` (11,343,735 bytes).
+- All eight `f199526_part01.txt`–`part08.txt` files are readable. Ordered concatenation with CRLF-to-LF normalization matched the original Git blob; the reconstructed source has 53,141 lines including the final empty line.
+- An independent structural signature scan confirmed 18 page declarations, 54 region declarations including 3 report-region declarations, 22 page items, 28 buttons, 14 dynamic-action events and 17 page processes.
+- A follow-up change added `create_report_region` signature recognition. The prior reported local synthetic regression result was **18/18 passed**; the older [QA report](qa-report.md) records its earlier 17/17 result.
 
-## Next safe QA step
+## Not verified — release blockers
 
-1. Verify the uploaded APEX application is personally owned or properly licensed for public redistribution. If not, remove the file and consider repository history cleanup.
-2. Check export contents locally for hardcoded passwords, keys, tokens, internal URLs, customer identifiers, proprietary logic and data. **A public repository preserves history; deleting the file from HEAD alone is not enough to remove secrets from old commits.** Rotate any exposed secrets and follow GitHub's sensitive-data removal guidance.
-3. To validate the export without publishing more data, obtain the authorized, sanitized file in a test environment and execute `apex-devkit inspect-export f199526.sql --format json --output export-report.json`. Review the report before sharing. Do not execute import scripts.
-4. Compare counts with an authorized APEX application export and add only minimal synthetic or explicitly redistributable regression fixtures.
-5. Keep GitHub release and OpenAI application submission on hold pending evidence.
+- **NOT RUN:** executing the Python CLI on the full authentic 11.3 MB export inside the same test environment. Git blob reconstruction and a separate structural scan are not equivalent to CLI execution.
+- **NOT RUN:** installation/import into a live authorized Oracle APEX instance, runtime or DB permission testing, independent full source/dependency/license/security audit.
+- **NOT ESTABLISHED:** ownership, full sanitization, redistribution rights or safety of the published fixture. Exporter identity metadata and application configuration are included in the public file. A limited secret-pattern scan is not comprehensive.
 
-The current file is smaller than the CLI's 20 MiB SQL input cap, but that fact alone does **not** establish successful processing.
+## Required next steps
+
+1. Review whether the complete fixture and all embedded static assets are self-owned and approved for public redistribution. If rights or data safety are uncertain, remove public access and follow GitHub's sensitive-data history-removal procedures; deleting a file from the latest commit does not remove its history. Rotate any exposed secrets.
+2. Use an authorized, sanitized copy in a controlled test environment to run `apex-devkit inspect-export path/to/f199526.sql --format json` and compare the output with the independently observed signatures. Do not execute the export SQL.
+3. Add regression tests for the recognized export signatures using newly written synthetic fixtures without embedding potentially sensitive application code.
+4. Validate package installation on supported Python versions, ZIP safety limits and licensing before an official tagged release.
+5. Keep any claims of Oracle certification, runtime compatibility, full security clearance, and external program eligibility on hold until independently established.
+
+No GitHub release or external application is claimed or authorized by this update.
