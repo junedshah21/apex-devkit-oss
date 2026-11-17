@@ -20,11 +20,11 @@ I would use API credits to prototype opt-in explanations for static SQL/APEX fin
 
 ## Anything else? (411/500 characters)
 
-The public repository contains original synthetic examples, a Python CLI, regression tests, a threat model, and issue/PR history. The project was created in November 2026 and is experimental. I make no claims of Oracle certification, significant downloads, or established community adoption. A real APEX export's redistribution review remains open, and the application will be updated to reflect its resolution.
+The public repository contains original synthetic examples, a Python CLI, regression tests, a threat model, and issue/PR history. The project was created in November 2026 and is experimental. I make no claims of Oracle certification, significant downloads, or established community adoption. A previously published APEX export has been excluded from current main pending a rights review; historical copies may remain.
 
 ## Unresolved before final recommendation
 
-1. The owner must confirm whether the previously published `f199526.sql` and eight fragments are owned and redistributable; no such confirmation was found. Draft PR #4 proposes removal from public HEAD while retaining self-authored synthetic tests, but **is not merged**. Removal does not purge Git history.
+1. The owner must confirm whether the previously published `f199526.sql` and eight fragments are owned and redistributable; no such confirmation was found. PR #4 has been **merged** to remove the original export and fragments from the current public HEAD, while retaining synthetic tests. Removal does not purge Git history.
 2. The tested reconstructed-source suite (23 passes) and CLI smoke test do not prove actual Oracle runtime compatibility or a byte-identical Git checkout QA run.
 3. Genuine ecosystem impact/third-party adoption has not yet been established. No fake metrics should be supplied.
 4. Verify the official terms and email/account redemption requirements before submitting; the applicant must authorize and submit the actual form.

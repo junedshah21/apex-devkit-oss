@@ -9,6 +9,7 @@
 - Outputs JSON or Markdown. `--disable SQL001` and inline `-- devkit: ignore SQL001` suppress an advisory.
 - `sql/schema_inventory.sql`: **optional**, manually executed read-only Oracle user-schema metadata queries. Not integrated into the Python CLI.
 - `examples/apex_ajax_callback.sql`: original sample, **not** an installed APEX application.
+- [`examples/synthetic_apex_export.sql`](examples/synthetic_apex_export.sql): self-authored, illustrative declaration fixture (not an installable application); [reproducible demo](docs/use-case-demo.md).
 
 These utilities are not a full Oracle SQL parser, vulnerability scanner, or a certified APEX application analyzer. No SQL or APEX export is executed by the Python tools. Treat findings as prompts for human review. The export file might contain secrets; **never publish sensitive export files or their reports without review**.
 
@@ -27,6 +28,12 @@ apex-devkit inspect-export path/to/f123/ --format markdown
 ```
 
 An alternative without installing: `PYTHONPATH=src python -m apex_devkit lint example.sql`.
+
+## Verification and responsible fixtures
+
+- Historical verification: Python 3.13.5 reconstructed-source tests **23/23 passed**, with an editable-install and synthetic CLI smoke check. This is not a byte-identical Git checkout validation or an Oracle runtime claim. See [QA report](docs/qa-report.md).
+- A previously uploaded real APEX export and its eight fragments were **removed from the current public main branch** because ownership and redistribution clearance could not be established. Historic Git revisions may still expose these artifacts. If sensitive data was included, follow a separate GitHub history and credential incident response.
+- The public demonstration uses only self-authored synthetic fixtures; no genuine APEX application installation is claimed.
 
 ## Safety and input limits
 

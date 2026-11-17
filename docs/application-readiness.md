@@ -10,8 +10,8 @@ This is a **draft, not a submitted application**. Approval and redemption of six
 - Public repository, created 2026-11-17; maintainer has repository write/admin access.
 - At preparation time GitHub reported **0 stars and 0 forks**; no user/download figures have been established.
 - Independent MIT-licensed Python 3.10+ offline and read-only static advisory toolkit for Oracle APEX export and SQL review; does not run SQL or connect to a database.
-- A real uploaded 11.3 MB APEX SQL export was reconstructed from 8 parts and statically inspected, with declaration counts documented in [real-export-audit.md](real-export-audit.md).
-- Existing documented local synthetic tests: 17/17 in the original QA report, and 18/18 following report-region counting support. Real export **Python CLI execution** and **live Oracle import/runtime** are not verified.
+- A previously published 11.3 MB real APEX export was reconstructed from 8 parts and statically inspected; historical details are in [real-export-audit.md](real-export-audit.md). The export and fragments have since been excluded from current `main` via PR #4 because rights were unverified. Git history may still contain them.
+- Historical tests: 17/17, then 18/18; after the PR #2 changes, 23/23 tests passed on a manually reconstructed Python 3.13.5 source checkout, plus editable install and demo CLI smoke test. The exact Git checkout and real export CLI execution were not verified; **live Oracle runtime** was not tested.
 - GitHub Actions is not required. Formal release, adoption evidence, independent security and permission checks remain outstanding.
 
 ## Official application inputs — prepare accurately
@@ -32,7 +32,7 @@ I am the primary maintainer of this newly published project. The toolkit is expe
 
 ## Recommended evidence milestones before submitting
 
-1. Establish that any public real APEX export is owned, appropriately sanitized and legally redistributable, including embedded assets; remove or remediate if necessary. A Git commit deletion does not scrub historical copies.
+1. Establish the historical real APEX export's ownership and redistribution rights, including embedded assets; PR #4 removed the files from HEAD, but historical copies may remain and require separate remediation if sensitive. A Git commit deletion does not scrub historical copies.
 2. Complete full genuine-export CLI tests in a controlled local environment and independently document expected results.
 3. Add original synthetic regression fixtures, improve ZIP decompression protections, and run a documented Python version matrix.
 4. Complete a reviewed versioned release with exact tested commit and release notes.
