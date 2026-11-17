@@ -15,6 +15,7 @@ COMPONENTS = {
     'create_page_item': 'page_items',
     'create_page_button': 'buttons',
     'create_page_plug': 'regions',
+    'create_report_region': 'report_regions',
     'create_page_da_event': 'dynamic_actions',
     'create_security_scheme': 'authorization_schemes',
     'create_list_of_values': 'shared_lovs',

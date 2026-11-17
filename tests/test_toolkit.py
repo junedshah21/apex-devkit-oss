@@ -113,3 +113,18 @@ class HardeningTests(unittest.TestCase):
                 z.writestr('C:/private.sql', 'x')
             with self.assertRaisesRegex(ValueError, 'Unsafe'):
                 inspect_export(p)
+
+
+class RealExportSignatureTests(unittest.TestCase):
+    def test_report_region_distinguished(self):
+        from apex_devkit.exports import inspect_text
+        fixture = (
+            'wwv_flow_imp_page.create_page_plug(p_id=>1);\n'
+            'wwv_flow_imp_page.create_report_region(p_id=>2);\n'
+            'wwv_flow_imp_page.create_page(p_id=>3);\n'
+        )
+        counts, findings = inspect_text(fixture, 'synthetic.sql')
+        self.assertEqual(counts['regions'], 1)
+        self.assertEqual(counts['report_regions'], 1)
+        self.assertEqual(counts['pages'], 1)
+        self.assertEqual(findings, [])
