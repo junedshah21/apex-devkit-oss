@@ -52,6 +52,21 @@ class SyntheticExportRegressionTests(unittest.TestCase):
             self.assertEqual(inspect_export(archive)["components"], EXPECTED)
             self.assertEqual(inspect_export(archive)["files_inspected"], 1)
 
+    def test_zip_byte_budget_counts_exact_source_bytes(self):
+        from apex_devkit.exports import _read_bounded
+        with tempfile.TemporaryDirectory() as temp:
+            archive = Path(temp) / "bytes.zip"
+            with zipfile.ZipFile(archive, "w") as zf:
+                zf.writestr("plain.sql", b"abc")
+                zf.writestr("bom.sql", b"\\xef\\xbb\\xbfabc")
+            with zipfile.ZipFile(archive) as zf:
+                plain, plain_bytes = _read_bounded(zf, zf.getinfo("plain.sql"), 3)
+                bom, bom_bytes = _read_bounded(zf, zf.getinfo("bom.sql"), 6)
+                self.assertEqual((plain, plain_bytes), ("abc", 3))
+                self.assertEqual((bom, bom_bytes), ("abc", 6))
+                with self.assertRaises(ValueError):
+                    _read_bounded(zf, zf.getinfo("bom.sql"), 5)
+
     def test_split_directory_and_cli_json(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
