@@ -58,7 +58,7 @@ class SyntheticExportRegressionTests(unittest.TestCase):
             archive = Path(temp) / "bytes.zip"
             with zipfile.ZipFile(archive, "w") as zf:
                 zf.writestr("plain.sql", b"abc")
-                zf.writestr("bom.sql", b"\\xef\\xbb\\xbfabc")
+                zf.writestr("bom.sql", b"\xef\xbb\xbfabc")
             with zipfile.ZipFile(archive) as zf:
                 plain, plain_bytes = _read_bounded(zf, zf.getinfo("plain.sql"), 3)
                 bom, bom_bytes = _read_bounded(zf, zf.getinfo("bom.sql"), 6)
