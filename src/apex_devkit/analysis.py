@@ -5,6 +5,7 @@ The analyzer intentionally avoids conclusions about runtime exploitability.
 """
 from __future__ import annotations
 from dataclasses import asdict, dataclass
+from bisect import bisect_left
 import re
 
 
@@ -91,13 +92,14 @@ def analyze_sql(source: str, path: str = '<input>', disabled: set[str] | None = 
     masked = mask_sql(source)
     # Compute lines once; repeated splitlines() per finding scales poorly on large exports.
     source_lines = source.splitlines()
+    newline_offsets = [idx for idx, char in enumerate(source) if char == '\n']
     findings = []
     for rule, pattern in PATTERNS.items():
         if rule in disabled:
             continue
         severity, message, suggestion = RULES[rule]
         for match in pattern.finditer(masked):
-            line = source.count('\n', 0, match.start()) + 1
+            line = bisect_left(newline_offsets, match.start()) + 1
             # Allow a narrow, auditable per-line suppression: -- devkit: ignore SQL001
             original_line = source_lines[line - 1]
             if re.search(r'--\s*devkit:\s*ignore\s+' + rule + r'\b', original_line, re.I):
