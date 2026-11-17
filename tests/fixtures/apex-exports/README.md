@@ -1,13 +1,9 @@
-# Sanitized Oracle APEX application export fixtures
+# APEX export fixtures — public safety policy
 
-Upload **only self-owned, synthetic or fully sanitized test application exports** here as `.sql` files.
+This directory accepts **only self-owned, expressly redistributable and fully sanitized** Oracle APEX export fixtures. Never upload client/employer artifacts, credentials, personal data, proprietary source, or embedded assets without the right to publish them.
 
-This directory is in a PUBLIC GitHub repository. Do not upload employer/client code, real usernames, customer records, credentials, API keys, authentication secrets, internal URLs, or sensitive configuration. Oracle APEX export scripts can contain embedded settings, SQL, static files, and application logic. Review exports before committing.
+The previously uploaded `f199526.sql` and eight text fragments were proposed for removal in a review PR because ownership and redistribution rights were **not verified**. This is a precautionary action, **not** an assertion that the content was unauthorized.
 
-Recommended file names: `demo_apex_24_2.sql` or `sample_app_f100.sql`.
+**Important:** Removing files from the current branch does **not** remove historical Git objects, cached copies or forks. If private information was actually exposed, treat it as an incident: rotate credentials, determine the exposure scope, and follow GitHub's sensitive-data-removal process. A history rewrite also has its own consequences and requires a separate reviewed decision.
 
-Each fixture should include a separate short note recording APEX version, export mode (single SQL or split), whether it is sanitized, and whether it may be redistributed under MIT. Never claim successful live Oracle validation from static inspection alone.
-
-The Python inspector reads exported SQL as data and does not run it. Uploading here does NOT import SQL into Oracle APEX.
-
-If you cannot verify that the export is safe for public disclosure, do NOT upload it here; use a private channel instead.
+Use the self-authored `examples/synthetic_apex_export.sql` demonstration and `tests/test_synthetic_export_regression.py` for public reproducible checks. A real export can be assessed privately in a controlled environment without committing it to the repository.
