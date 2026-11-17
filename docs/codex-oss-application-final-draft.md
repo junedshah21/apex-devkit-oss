@@ -10,17 +10,17 @@ Official form: https://openai.com/form/codex-for-oss/
 - Interest in Codex Security/API credits: applicant selects based on their actual intended use. Credits are optional/discretionary.
 - 6-month Pro remains subject to OpenAI selection and redemption eligibility.
 
-## Why does this repository qualify? (466/500 characters)
+## Why does this repository qualify? (472/500 characters)
 
-APEX DevKit OSS is a free, MIT-licensed, offline Python toolkit for Oracle APEX developers. It provides read-only export component inspection and conservative SQL/PLSQL linting with reproducible examples and tests. As the repository's primary maintainer, I implement fixes, review PRs, triage issues, and maintain its docs. The project is early-stage with no verified external adoption yet; it addresses a niche APEX workflow and documents limitations transparently.
+APEX DevKit OSS is a free, MIT-licensed, offline Python toolkit for Oracle APEX developers. It provides read-only export component inspection and conservative SQL/PLSQL linting with reproducible examples and tests. As repository owner and primary maintainer, I oversee development, review and merge changes, maintain documentation, and track issues. The project is new and has no verified external adoption yet, but addresses a niche APEX workflow with transparent limits.
 
 ## How will you use API credits? (365/500 characters)
 
 I would use API credits to prototype opt-in explanations for static SQL/APEX findings, summarize user-submitted issues and PRs, and improve test-case generation and maintainer documentation. Any code submitted for AI analysis would require the contributor's permission and privacy review. The offline CLI would remain usable without an API key or external services.
 
-## Anything else? (411/500 characters)
+## Anything else? (492/500 characters)
 
-The public repository contains original synthetic examples, a Python CLI, regression tests, a threat model, and issue/PR history. The project was created in November 2026 and is experimental. I make no claims of Oracle certification, significant downloads, or established community adoption. A previously published APEX export has been excluded from current main pending a rights review; historical copies may remain.
+This is an early-stage, independently maintained Python CLI with self-authored synthetic fixtures and documented QA limitations. Its goal is to give Oracle APEX developers a transparent, offline way to inspect export structure and review basic SQL patterns. The previously public real-export fixture was removed from current main pending redistribution review; historical Git commits may still contain it. I do not claim third-party adoption, Oracle certification, or a production deployment.
 
 ## Unresolved before final recommendation
 
