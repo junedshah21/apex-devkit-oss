@@ -10,3 +10,8 @@ build/
 !.env.example
 *.zip
 *.log
+
+# Prevent accidental publication of real APEX export fixtures.
+# Self-authored illustrative examples belong in examples/ instead.
+tests/fixtures/apex-exports/*.sql
+tests/fixtures/apex-exports/*.txt
