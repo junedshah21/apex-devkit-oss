@@ -62,13 +62,13 @@ def _safe_zip_members(zf: zipfile.ZipFile):
         yield member
 
 
-def _read_bounded(zf: zipfile.ZipFile, member: zipfile.ZipInfo, remaining: int) -> str:
+def _read_bounded(zf: zipfile.ZipFile, member: zipfile.ZipInfo, remaining: int) -> tuple[str, int]:
     # Cap ACTUAL decompressed bytes, not just untrusted ZIP metadata.
     with zf.open(member) as stream:
         raw = stream.read(min(remaining, MAX_BYTES) + 1)
     if len(raw) > remaining:
         raise ValueError('ZIP actual uncompressed size limit exceeded')
-    return raw.decode('utf-8-sig')
+    return raw.decode('utf-8-sig'), len(raw)
 
 
 def inspect_export(path: Path) -> dict:
@@ -86,8 +86,8 @@ def inspect_export(path: Path) -> dict:
         with zipfile.ZipFile(path) as zf:
             remaining = MAX_BYTES
             for member in _safe_zip_members(zf):
-                decoded = _read_bounded(zf, member, remaining)
-                remaining -= len(decoded.encode('utf-8-sig'))
+                decoded, bytes_read = _read_bounded(zf, member, remaining)
+                remaining -= bytes_read
                 read_sql(decoded, member.filename)
     elif path.is_file() and path.suffix.lower() == '.sql':
         if path.stat().st_size > MAX_BYTES:
