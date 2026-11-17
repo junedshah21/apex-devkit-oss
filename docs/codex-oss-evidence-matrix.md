@@ -23,6 +23,12 @@ The public guidance says maintainers of active open-source projects may apply. R
 | Optional information (max 500 characters) | Real test/release evidence once complete | Update before submission |
 | Terms and redemption | Official program terms linked from form; six-month Pro is for selected maintainers | Applicant reviews terms; separately verify promo redemption eligibility with active subscription before changing it |
 
+## Deadline and prioritization (official page checked 2026-11-17)
+
+The live [application form](https://openai.com/form/codex-for-oss/) explicitly says applications are reviewed **on a rolling basis**. **No fixed closure date is published on that page.** This does not guarantee the offer will remain available. Therefore do not postpone submission indefinitely waiting for vanity metrics or an arbitrary repository age.
+
+Prioritize critical gates: repository ownership, privacy/redistribution permission, honest functioning demo, reproducible tests, and accurate application answers. Legitimate adoption evidence should be collected as it occurs; do not buy or fake stars, downloads, endorsements or activity. The applicant makes the final submission decision after reviewing the official terms.
+
 ## Evidence gates before recommending submission
 
 - [ ] Review and clear public `f199526.sql` plus all fragments, embedded assets, and repository history for ownership, redistribution rights, and sensitive data. If uncertain, remediate disclosure; deletion from HEAD alone does not scrub git history.
